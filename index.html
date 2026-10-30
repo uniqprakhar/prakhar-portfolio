@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prakhar Patni — Production Systems, Shipped</title>
+<meta name="description" content="Prakhar Patni — GenAI platforms, automation and cloud systems in production, open-source tooling and editorial commerce sites.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600&family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+--ink:#0A0B09; --panel:#131511; --panel2:#181B16;
+--text:#EDEBE3; --muted:#A8A49A; --faint:#7E7A71; --line:rgba(237,235,227,.09); --line2:rgba(237,235,227,.14);
+--gold:#D3B87A; --gold2:#B99A5B; --sage:#9CAF88;
+--r:20px; --max:1120px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+::selection{background:var(--gold);color:#141000}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--text);font-family:Archivo,system-ui,sans-serif;font-size:17px;line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.05;
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.85'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E")}
+.mono{font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase}
+a{color:inherit}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 30px;position:relative;z-index:2}
+#progress{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--gold2),var(--gold));z-index:99}
+nav{position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:50;display:flex;align-items:center;gap:30px;
+background:rgba(14,16,13,.78);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+border:1px solid var(--line2);border-radius:999px;padding:10px 12px 10px 24px;max-width:94vw;box-shadow:0 18px 50px rgba(0,0,0,.5)}
+nav .brand{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.12em;white-space:nowrap}
+nav .brand b{color:var(--gold);font-weight:500}
+nav .links{display:flex;gap:24px}
+nav .links a{text-decoration:none;font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);transition:color .2s}
+nav .links a:hover{color:var(--text)}
+.btn{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:600;font-size:15px;border-radius:999px;padding:14px 28px;border:1px solid var(--line2);transition:transform .18s,box-shadow .2s,border-color .2s,background .2s;cursor:pointer}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:linear-gradient(180deg,#E9D6A4,#C9A96A);color:#191307;border:none;box-shadow:0 12px 34px rgba(211,184,122,.18),inset 0 1px 0 rgba(255,255,255,.5)}
+.btn-ghost{color:var(--text);background:rgba(255,255,255,.02)}
+.btn-ghost:hover{border-color:var(--gold)}
+.btn-sm{padding:10px 20px;font-size:13px}
+header{min-height:100vh;display:flex;align-items:center;padding:140px 0 60px;position:relative;overflow:hidden;
+background:radial-gradient(1100px 600px at 12% 92%,rgba(28,52,38,.55),transparent 62%),radial-gradient(800px 480px at 86% 4%,rgba(211,184,122,.09),transparent 60%),radial-gradient(1400px 900px at 50% 130%,rgba(0,0,0,.6),transparent 60%),var(--ink)}
+header::before{content:"";position:absolute;inset:0;
+background-image:linear-gradient(rgba(237,235,227,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(237,235,227,.035) 1px,transparent 1px);
+background-size:52px 52px;mask-image:radial-gradient(850px 620px at 62% 42%,#000 25%,transparent 78%)}
+.hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:64px;align-items:center;width:100%}
+.eyebrow{color:var(--gold);margin-bottom:24px}
+h1{font-family:"Bodoni Moda",serif;font-weight:600;font-size:clamp(46px,6vw,84px);line-height:1.03;letter-spacing:-.015em;margin-bottom:24px}
+h1 em{font-style:italic;color:var(--gold)}
+.lede{color:var(--muted);font-size:18.5px;max-width:50ch;margin-bottom:36px}
+.lede strong{color:var(--text);font-weight:600}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:32px}
+.hero-meta{display:flex;gap:22px;color:var(--faint);flex-wrap:wrap}
+/* hero outcomes panel */
+.outcomes{background:linear-gradient(180deg,rgba(24,27,22,.92),rgba(15,17,14,.9));border:1px solid var(--line2);border-radius:24px;padding:14px;position:relative;box-shadow:0 40px 100px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.06);overflow:hidden}
+.outcomes::before{content:"";position:absolute;inset:0;background:radial-gradient(500px 240px at 80% 0%,rgba(211,184,122,.08),transparent 60%);pointer-events:none}
+.oc-row{display:flex;align-items:center;gap:18px;padding:20px 20px;border-radius:14px;transition:background .2s;position:relative}
+.oc-row:hover{background:rgba(211,184,122,.05)}
+.oc-row+.oc-row{border-top:1px solid var(--line)}
+.oc-n{flex:none;width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:#0D0F0C;border:1px solid var(--line2);box-shadow:inset 0 1px 0 rgba(255,255,255,.07)}
+.oc-n svg{stroke:var(--gold)}
+.oc-row h3{font-size:16.5px;font-weight:600;margin-bottom:3px}
+.oc-row p{color:var(--muted);font-size:14.5px;line-height:1.5}
+.oc-k{margin-left:auto;flex:none;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.1em;color:var(--faint);border:1px solid var(--line);padding:6px 12px;border-radius:999px;white-space:nowrap}
+.oc-foot{display:flex;justify-content:space-between;padding:14px 20px 8px;color:var(--faint)}
+.marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;white-space:nowrap;padding:14px 0;background:rgba(255,255,255,.012);position:relative;z-index:2}
+.marquee div{display:inline-block;animation:mq 30s linear infinite;font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.16em;color:var(--faint)}
+.marquee b{color:var(--gold);font-weight:500}
+@keyframes mq{to{transform:translateX(-50%)}}
+section{padding:104px 0;position:relative;z-index:2}
+.sec-head{margin-bottom:16px}
+h2{font-family:"Bodoni Moda",serif;font-weight:600;font-size:clamp(36px,4.2vw,54px);line-height:1.06;margin-bottom:14px}
+.sec-sub{color:var(--muted);max-width:62ch;margin-bottom:34px;font-size:17.5px}
+.proj{border:1px solid var(--line);border-radius:24px;padding:44px;margin-bottom:24px;background:linear-gradient(180deg,rgba(255,255,255,.022),transparent 55%);transition:transform .25s,border-color .25s,box-shadow .25s;position:relative;overflow:hidden}
+.proj:hover{transform:translateY(-3px);border-color:rgba(211,184,122,.35);box-shadow:0 28px 70px rgba(0,0,0,.5)}
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.proj-grid.flip .pvis{order:2}
+.pkick{display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
+.knum{font-family:"Bodoni Moda",serif;font-size:15px;color:var(--gold);border:1px solid rgba(211,184,122,.35);border-radius:999px;padding:4px 14px}
+.ktag{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:5px 13px}
+.ktag.live{color:#7FD99A;border-color:rgba(127,217,154,.35)}
+.proj h3{font-size:31px;font-weight:700;margin-bottom:14px;letter-spacing:-.015em;line-height:1.15}
+.proj h3 a{color:inherit;text-decoration:none}
+.proj h3 a:hover{color:var(--gold)}
+.proj .desc{color:var(--muted);margin-bottom:14px;font-size:17px}
+.proj .desc strong{color:var(--text)}
+.result{display:flex;gap:10px;align-items:flex-start;background:rgba(211,184,122,.06);border:1px solid rgba(211,184,122,.2);border-radius:12px;padding:13px 16px;margin-bottom:22px;font-size:15px}
+.result i{font-style:normal;color:var(--gold);flex:none}
+.result span{color:var(--text)}
+.result span b{font-weight:600}
+.stk{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.stk span{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:#CFC8B8;background:rgba(211,184,122,.06);border:1px solid rgba(211,184,122,.18);border-radius:7px;padding:5px 11px}
+.pvis{border-radius:var(--r);overflow:hidden;border:1px solid var(--line2);aspect-ratio:16/10.5;background:#0C0E0B;position:relative;display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,.4)}
+.pvis .cap{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);padding:11px 18px;border-top:1px solid var(--line);background:rgba(0,0,0,.5)}
+.pvb{flex:1;display:flex;align-items:center;justify-content:center;padding:26px;position:relative;overflow:hidden}
+.arch{width:100%;max-width:470px}
+.arch .bx{fill:#12150F;stroke:#D3B87A;stroke-width:1.4;opacity:.95}
+.arch .bx2{stroke:#9CAF88}
+.arch text{fill:#EDEBE3;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.05em}
+.arch .ar{stroke:#D3B87A;stroke-width:1.4;fill:none;opacity:.8}
+.term{width:100%;max-width:450px;background:#0A0C09;border:1px solid rgba(211,184,122,.28);border-radius:12px;overflow:hidden;text-align:left;box-shadow:0 0 50px rgba(211,184,122,.06)}
+.term .tb{display:flex;gap:6px;padding:11px 15px;border-bottom:1px solid var(--line);align-items:center}
+.term .tb i{width:10px;height:10px;border-radius:50%;background:#333;display:block}
+.term .tb i:first-child{background:#E0655A}.term .tb i:nth-child(2){background:#D9A845}.term .tb i:nth-child(3){background:#5FB86A}
+.term .tb span{margin-left:auto;font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--faint)}
+.term pre{padding:18px;font-family:"JetBrains Mono",monospace;font-size:12.5px;line-height:1.9;color:#E4D9BE;white-space:pre-wrap}
+.term pre .c{color:var(--faint)}.term pre .ok{color:#7FD99A}
+.phone{width:176px;background:#0A0C09;border:1px solid var(--line2);border-radius:28px;padding:12px;box-shadow:0 0 50px rgba(0,0,0,.5)}
+.phone .scr{background:#141613;border-radius:18px;padding:12px;min-height:236px}
+.notif{background:#1C1F1A;border:1px solid var(--line2);border-radius:12px;padding:11px;font-size:12px;margin-bottom:10px}
+.notif b{display:block;font-size:12.5px;margin-bottom:2px}
+.notif small{color:var(--muted)}
+.folder{background:#22251F;border-radius:10px;padding:9px 11px;font-size:12px;margin-bottom:6px;display:flex;justify-content:space-between}
+.folder.hot{border:1px solid rgba(211,184,122,.5)}
+.okbtn{background:linear-gradient(180deg,#E9D6A4,#C9A96A);border-radius:999px;text-align:center;font-size:12px;font-weight:700;color:#191307;padding:9px;margin-top:9px}
+.browser{width:100%;max-width:470px;border-radius:12px;overflow:hidden;border:1px solid var(--line2);background:#0A0C09;text-align:left;box-shadow:0 24px 60px rgba(0,0,0,.4)}
+.browser .bb{background:#191C17;padding:9px 13px;display:flex;gap:6px;align-items:center}
+.browser .bb i{width:9px;height:9px;border-radius:50%;background:#333;display:block}
+.browser .url{flex:1;background:#0A0C09;border-radius:6px;font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--muted);padding:4px 11px;margin-left:8px;white-space:nowrap;overflow:hidden}
+.site-cream{background:#F6F0E2;color:#2a2118;padding:20px;min-height:216px}
+.site-cream h4{font-family:"Bodoni Moda",serif;font-size:27px;line-height:1.1;margin-bottom:8px}
+.site-cream p{font-size:12.5px;color:#6b5f4c;margin-bottom:12px}
+.goldbtn{display:inline-block;background:#B99A5B;color:#fff;font-size:12px;font-weight:600;letter-spacing:.04em;border-radius:3px;padding:9px 20px}
+.prods{display:flex;gap:8px;margin-top:14px}
+.prods div{flex:1;background:#fff;border:1px solid #e5dcc8;border-radius:8px;height:62px;display:flex;align-items:center;justify-content:center;font-size:19px}
+.site-green{background:#F4F2E6;color:#22301F;padding:20px;min-height:216px}
+.site-green h4{font-family:"Bodoni Moda",serif;font-size:26px;line-height:1.1;margin-bottom:8px}
+.site-green p{font-size:12.5px;color:#5c6b58;margin-bottom:12px}
+.limebtn{display:inline-block;background:#22301F;color:#F4F2E6;font-size:12px;font-weight:600;border-radius:999px;padding:9px 22px}
+.chartbox{width:100%;max-width:450px;text-align:left}
+.smp{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.14em;color:var(--gold);border:1px dashed rgba(211,184,122,.45);border-radius:6px;padding:5px 11px;display:inline-block;margin-bottom:12px}
+/* capabilities = two-col editorial rows */
+.capband{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(255,255,255,.012)}
+.caprow{display:grid;grid-template-columns:220px 1fr;gap:36px;padding:34px 0;border-top:1px solid var(--line);align-items:start}
+.caprow:first-of-type{border-top:none}
+.caprow .cn{font-family:"Bodoni Moda",serif;font-size:16px;color:var(--gold)}
+.caprow h3{font-size:21px;margin-bottom:8px;font-weight:600}
+.caprow p{color:var(--muted);max-width:60ch;font-size:16px}
+.caprow .ce{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--faint);margin-top:10px;letter-spacing:.06em}
+/* about + footer */
+.about-card{border:1px solid var(--line2);border-radius:24px;padding:60px;background:linear-gradient(140deg,rgba(28,52,38,.4),rgba(15,17,13,.7) 60%);position:relative;overflow:hidden}
+.about-card blockquote{font-family:"Bodoni Moda",serif;font-size:clamp(27px,3.4vw,40px);line-height:1.28;margin-bottom:24px;max-width:24ch}
+.about-card blockquote em{color:var(--gold);font-style:italic}
+.about-card p{color:var(--muted);max-width:62ch;font-size:17.5px}
+footer{border-top:1px solid var(--line);padding:100px 0 40px;position:relative;z-index:2;background:radial-gradient(720px 300px at 50% 0%,rgba(211,184,122,.07),transparent 65%)}
+footer h2{font-size:clamp(54px,8vw,104px);margin-bottom:12px}
+footer h2 u{text-decoration:none;border-bottom:4px solid var(--gold)}
+footer .sub{color:var(--muted);margin-bottom:32px;font-size:18px}
+.soc{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:48px}
+.soc a{display:inline-flex;align-items:center;gap:9px;text-decoration:none;font-size:14.5px;font-weight:600;border:1px solid var(--line2);border-radius:999px;padding:13px 24px;transition:all .2s;background:rgba(255,255,255,.02)}
+.soc a:hover{border-color:var(--gold);transform:translateY(-2px)}
+.colophon{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;color:var(--faint);border-top:1px solid var(--line);padding-top:24px}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s,transform .7s}
+.reveal.in{opacity:1;transform:none}
+@media(max-width:960px){.hero-grid{grid-template-columns:1fr}.proj-grid{grid-template-columns:1fr}.proj-grid.flip .pvis{order:0}.caprow{grid-template-columns:1fr;gap:10px}nav .links{display:none}.proj{padding:30px}}
+@media(max-width:620px){section{padding:70px 0}.about-card{padding:34px}nav{gap:16px;padding:8px 14px}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<nav>
+<div class="brand"><b>PP</b> · PRAKHAR PATNI</div>
+<div class="links"><a href="#work">Work</a><a href="#capabilities">Capabilities</a><a href="#about">About</a></div>
+<div><a class="btn btn-ghost btn-sm" href="#contact">Get in touch →</a></div>
+</nav>
+<header>
+<div class="wrap hero-grid">
+<div>
+<div class="mono eyebrow">Prakhar Patni — Indore, India</div>
+<h1>Production systems, <em>shipped.</em></h1>
+<p class="lede">GenAI platforms, automation and cloud systems <strong>in production</strong> — plus open-source tooling and editorial commerce sites. Designed, built and maintained end to end.</p>
+<div class="hero-cta">
+<a class="btn btn-primary" href="#work">View projects</a>
+<a class="btn btn-ghost" href="#contact">Get in touch</a>
+</div>
+<div class="mono hero-meta"><span>● Available for select builds</span><span id="ist">IST --:--</span></div>
+</div>
+<div class="outcomes">
+<div class="oc-row"><div class="oc-n"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M14 3H6a1 1 0 00-1 1v16a1 1 0 001 1h12a1 1 0 001-1V8z"/><path d="M14 3v5h5M9 13l6 6M15 13l-6 6"/></svg></div>
+<div><h3>Document intelligence</h3><p>LLM extraction pipelines with validation, audit trails and structured storage.</p></div><span class="oc-k">01</span></div>
+<div class="oc-row"><div class="oc-n"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.6"><circle cx="6" cy="6" r="2.4"/><circle cx="18" cy="6" r="2.4"/><circle cx="12" cy="18" r="2.4"/><path d="M8 7.5l3 8M16 7.5l-3 8M8.5 6h7"/></svg></div>
+<div><h3>Agent orchestration</h3><p>Multi-agent routing and delegation tooling that works across providers.</p></div><span class="oc-k">02</span></div>
+<div class="oc-row"><div class="oc-n"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg></div>
+<div><h3>Workflow automation</h3><p>Event-driven pipelines and API integrations that remove manual operations.</p></div><span class="oc-k">03</span></div>
+<div class="oc-foot mono"><span>6 builds below</span><span>scroll ↓</span></div>
+</div>
+</div>
+</header>
+<div class="marquee"><div>&nbsp;DOCUMENT INTELLIGENCE <b>·</b> AGENT ORCHESTRATION <b>·</b> WORKFLOW AUTOMATION <b>·</b> CLOUD PLATFORMS <b>·</b> EDITORIAL COMMERCE <b>·</b> OPEN SOURCE <b>·</b>&nbsp;DOCUMENT INTELLIGENCE <b>·</b> AGENT ORCHESTRATION <b>·</b> WORKFLOW AUTOMATION <b>·</b> CLOUD PLATFORMS <b>·</b> EDITORIAL COMMERCE <b>·</b> OPEN SOURCE <b>·</b>&nbsp;</div></div>
+<section id="work"><div class="wrap">
+<div class="mono eyebrow" style="color:var(--gold)">01 — Selected work</div>
+<h2>What I've shipped.</h2>
+<p class="sec-sub">Six production-grade builds across AI platforms, developer tooling, mobile, commerce and data. Every visual is drawn in code, in one consistent language.</p>
+<article class="proj reveal">
+<div class="proj-grid">
+<div>
+<div class="pkick"><span class="knum">01</span><span class="ktag">AI platform</span></div>
+<h3>Document intelligence pipeline</h3>
+<p class="desc">A <strong>production document-processing platform</strong> — high-volume intake, LLM-powered extraction, multi-stage validation and structured storage with full auditability. Built for regulated workflows where output quality is contractual.</p>
+<div class="result"><i>◆</i><span><b>Designed for accuracy at scale</b> — validation gates, human-review handoff, idempotent processing.</span></div>
+<div class="stk"><span>LLM extraction</span><span>Validation gates</span><span>Structured storage</span><span>IaC</span><span>Python</span></div>
+</div>
+<div class="pvis"><div class="pvb" style="background:radial-gradient(420px 200px at 50% 110%,rgba(211,184,122,.1),transparent)">
+<svg class="arch" viewBox="0 0 460 176" role="img" aria-label="Platform architecture">
+<rect class="bx" x="8" y="52" width="100" height="64" rx="10"/><text x="58" y="78" text-anchor="middle">INTAKE</text><text x="58" y="96" text-anchor="middle" opacity=".55" font-size="10">batch + api</text>
+<rect class="bx bx2" x="124" y="52" width="100" height="64" rx="10"/><text x="174" y="78" text-anchor="middle">EXTRACT</text><text x="174" y="96" text-anchor="middle" opacity=".55" font-size="10">llm + rules</text>
+<rect class="bx" x="240" y="52" width="100" height="64" rx="10"/><text x="290" y="78" text-anchor="middle">VALIDATE</text><text x="290" y="96" text-anchor="middle" opacity=".55" font-size="10">gates + review</text>
+<rect class="bx" x="356" y="52" width="96" height="64" rx="10"/><text x="404" y="78" text-anchor="middle">STORE</text><text x="404" y="96" text-anchor="middle" opacity=".55" font-size="10">indexed</text>
+<line class="ar" x1="108" y1="84" x2="124" y2="84"/><line class="ar" x1="224" y1="84" x2="240" y2="84"/><line class="ar" x1="340" y1="84" x2="356" y2="84"/>
+<text x="230" y="150" text-anchor="middle" opacity=".5" font-size="10">generic architecture — no client systems shown</text>
+</svg></div><div class="cap">fig.01 — document platform / validation-gated pipeline</div></div>
+</div></article>
+
+<article class="proj reveal">
+<div class="proj-grid flip">
+<div class="pvis"><div class="pvb" style="background:radial-gradient(420px 220px at 80% 15%,rgba(211,184,122,.08),transparent)">
+<div class="term"><div class="tb"><i></i><i></i><i></i><span>sarx — v1.0</span></div><pre><span class="c"># route work to the best agent for the job</span>
+$ sarx delegate --to claude-code
+<span class="ok">✓ worker ready · context packed · streaming</span>
+$ sarx route ./task --any-agent
+<span class="c">→ dispatched · result verified</span></pre></div></div><div class="cap">fig.02 — sarx / cross-agent delegation</div></div>
+<div>
+<div class="pkick"><span class="knum">02</span><span class="ktag">Dev tools</span><span class="ktag">Open source</span></div>
+<h3><a href="https://github.com/uniqprakhar/SARx" target="_blank" rel="noopener">SARx — agent routing layer</a></h3>
+<p class="desc">An <strong>orchestrator-agnostic delegation tool</strong> that routes work between AI coding agents across operating systems. One install, any worker — built for teams running mixed agent fleets.</p>
+<div class="result"><i>◆</i><span><b>Adoption-focused design</b> — single install path, provider-neutral, demo in under a minute.</span></div>
+<div class="stk"><span>Agent routing</span><span>CLI</span><span>Cross-platform</span></div>
+<p style="margin-top:4px"><a href="https://github.com/uniqprakhar/SARx" target="_blank" rel="noopener" style="color:var(--gold);font-weight:600;text-decoration:none">SARx ↗</a>&nbsp;&nbsp;<a href="https://github.com/uniqprakhar/SAR" target="_blank" rel="noopener" style="color:var(--gold);font-weight:600;text-decoration:none">SAR ↗</a></p>
+</div></div></article>
+
+<article class="proj reveal">
+<div class="proj-grid">
+<div>
+<div class="pkick"><span class="knum">03</span><span class="ktag">Mobile</span><span class="ktag">Open source</span></div>
+<h3>ShotSort — screenshot intelligence</h3>
+<p class="desc"><strong>On-device screenshot triage</strong> for Android — intercept on capture, route to the right folder, and turn calendar screenshots into proposed events with <strong>one-tap approval</strong>. Private by design: no cloud models, no data leaves the phone.</p>
+<div class="result"><i>◆</i><span><b>Privacy-first architecture</b> — OCR and event proposals run fully on-device.</span></div>
+<div class="stk"><span>Android</span><span>On-device OCR</span><span>On-device ML</span></div>
+</div>
+<div class="pvis"><div class="pvb" style="background:radial-gradient(420px 220px at 20% 15%,rgba(156,175,136,.1),transparent);gap:18px">
+<div class="phone"><div class="scr"><div class="notif"><b>Screenshot captured</b><small>Route this file?</small></div><div class="folder"><span>Receipts</span><span>›</span></div><div class="folder hot"><span>Calendar · OCR ✓</span><span>›</span></div><div class="okbtn">Move file →</div></div></div>
+<div class="mono" style="color:var(--muted);font-size:11px;line-height:2">CAPTURE → ROUTE<br>OCR → PROPOSE<br>APPROVE ✓</div>
+</div><div class="cap">fig.03 — shotsort / on-device triage flow</div></div>
+</div></article>
+<article class="proj reveal">
+<div class="proj-grid flip">
+<div class="pvis"><div class="pvb"><div class="browser"><div class="bb"><i></i><i></i><i></i><span class="url">tattvasri.com</span></div><div class="site-cream"><h4>Where Energy Meets Intention</h4><p>Luxury jewellery · collections by intention · full product system</p><span class="goldbtn">Shop the collection</span><div class="prods"><div>💎</div><div>📿</div><div>💍</div></div></div></div></div><div class="cap">fig.04 — tattva sri / luxury commerce · live site</div></div>
+<div>
+<div class="pkick"><span class="knum">04</span><span class="ktag">Commerce</span><span class="ktag live">● Live</span></div>
+<h3><a href="https://tattvasri.com/" target="_blank" rel="noopener">Tattva Sri — luxury commerce</a></h3>
+<p class="desc">A <strong>live luxury jewellery store</strong> — collection architecture by intention, full product system, editorial art direction. Designed and built end to end as a conversion-focused storefront.</p>
+<div class="result"><i>◆</i><span><b>Live and trading</b> — real catalogue, real checkout, maintained in production.</span></div>
+<div class="stk"><span>Next.js</span><span>Commerce</span><span>Editorial design</span></div>
+<p><a href="https://tattvasri.com/" target="_blank" rel="noopener" style="color:var(--gold);font-weight:600;text-decoration:none">Visit live site ↗</a></p>
+</div></div></article>
+
+<article class="proj reveal">
+<div class="proj-grid">
+<div>
+<div class="pkick"><span class="knum">05</span><span class="ktag">Business site</span><span class="ktag live">● Live</span></div>
+<h3><a href="https://indore-nursery-phi.vercel.app/" target="_blank" rel="noopener">Indore Nursery — business platform</a></h3>
+<p class="desc">A <strong>complete business site</strong> for a plant nursery — catalogue, green-space services, events, journal and WhatsApp ordering. Serif editorial system carried across every template.</p>
+<div class="result"><i>◆</i><span><b>Built to take orders</b> — catalogue → enquiry → WhatsApp in two taps.</span></div>
+<div class="stk"><span>Editorial system</span><span>Catalogue + CMS</span><span>Lead capture</span></div>
+<p><a href="https://indore-nursery-phi.vercel.app/" target="_blank" rel="noopener" style="color:var(--gold);font-weight:600;text-decoration:none">Visit live site ↗</a></p>
+</div>
+<div class="pvis"><div class="pvb"><div class="browser"><div class="bb"><i></i><i></i><i></i><span class="url">indore-nursery-phi.vercel.app</span></div><div class="site-green"><h4>Best Plant Nursery in Indore</h4><p>Plants · pots · green spaces · events · journal · WhatsApp ordering</p><span class="limebtn">Explore plants →</span><div class="prods"><div>🌿</div><div>🪴</div><div>🌳</div></div></div></div></div><div class="cap">fig.05 — indore nursery / editorial commerce · live site</div></div>
+</div></article>
+
+<article class="proj reveal">
+<div class="proj-grid flip">
+<div class="pvis"><div class="pvb"><div class="chartbox"><span class="smp">◆ Sample data — recreation</span>
+<svg viewBox="0 0 420 190" style="width:100%" role="img" aria-label="Forecast chart">
+<line x1="30" y1="10" x2="30" y2="160" stroke="rgba(237,235,227,.18)"/><line x1="30" y1="160" x2="410" y2="160" stroke="rgba(237,235,227,.18)"/>
+<polyline points="30,140 90,132 150,136 210,118 270,110 330,86 390,78" fill="none" stroke="#D3B87A" stroke-width="2.5"/>
+<polyline points="270,110 330,86 390,78" fill="none" stroke="#D3B87A" stroke-width="2.5" stroke-dasharray="6 4" opacity=".65"/>
+<circle cx="270" cy="110" r="4" fill="#D3B87A"/>
+<text x="278" y="100" fill="#A8A49A" font-family="JetBrains Mono" font-size="10">forecast →</text>
+<text x="30" y="180" fill="#7E7A71" font-family="JetBrains Mono" font-size="10">MON&nbsp;&nbsp;TUE&nbsp;&nbsp;WED&nbsp;&nbsp;THU&nbsp;&nbsp;FRI&nbsp;&nbsp;SAT&nbsp;&nbsp;SUN</text>
+</svg></div></div><div class="cap">fig.06 — forecasting / validation backtest view</div></div>
+<div>
+<div class="pkick"><span class="knum">06</span><span class="ktag">Data</span></div>
+<h3>Battery performance forecasting</h3>
+<p class="desc"><strong>Time-series forecasting</strong> for solar street-light battery health — backtested degradation curves that maintenance teams can plan around. Chart shown is a recreation with sample data.</p>
+<div class="result"><i>◆</i><span><b>Operations-ready output</b> — forecast horizons matched to service schedules.</span></div>
+<div class="stk"><span>Time-series ML</span><span>Backtesting</span><span>Python</span></div>
+</div></div></article>
+</div></section>
+
+<section id="capabilities" class="capband"><div class="wrap">
+<div class="mono eyebrow" style="color:var(--gold)">02 — Capabilities</div>
+<h2>How I work.</h2>
+<p class="sec-sub">Engagements, not tickets. I take systems from ambiguous brief to production — architecture, build, validation and handoff.</p>
+<div>
+<div class="caprow reveal"><div class="cn">01</div><div><h3>Platform architecture</h3><p>Scoping ambiguous briefs into shippable systems — interfaces, data contracts, failure modes and rollout plans before a line is written.</p><div class="ce">DELIVERABLE — architecture brief + build plan + estimate</div></div></div>
+<div class="caprow reveal"><div class="cn">02</div><div><h3>GenAI in production</h3><p>Extraction and automation pipelines with evaluation harnesses, guardrails and human-review paths — not demos.</p><div class="ce">DELIVERABLE — evaluated pipeline + quality report</div></div></div>
+<div class="caprow reveal"><div class="cn">03</div><div><h3>Agent systems & tooling</h3><p>Routing, delegation and multi-agent workflows that survive contact with real teams and mixed providers.</p><div class="ce">DELIVERABLE — tooling + docs + adoption guide</div></div></div>
+<div class="caprow reveal"><div class="cn">04</div><div><h3>Automation & integrations</h3><p>Event-driven workflows across APIs and data stores — idempotent, observable, auditable.</p><div class="ce">DELIVERABLE — automated workflow + runbook</div></div></div>
+<div class="caprow reveal"><div class="cn">05</div><div><h3>Commerce & editorial sites</h3><p>Luxury and editorial storefronts with real catalogues, checkout and lead capture — designed to convert.</p><div class="ce">DELIVERABLE — live site + CMS handoff</div></div></div>
+<div class="caprow reveal"><div class="cn">06</div><div><h3>Data & forecasting</h3><p>Time-series models with backtests and decision-ready horizons — honest about uncertainty.</p><div class="ce">DELIVERABLE — model + backtest report</div></div></div>
+</div></div></section>
+
+<section id="about"><div class="wrap"><div class="mono eyebrow" style="color:var(--gold)">03 — About</div>
+<div class="about-card reveal"><blockquote>"I build systems that <em>hold up in production</em> — then stay out of the way."</blockquote>
+<p>I'm <strong style="color:var(--text)">Prakhar Patni</strong> from Indore, India. I work across GenAI platforms, cloud infrastructure and automation — and in the open with tools like SARx and ShotSort. My commerce work (Tattva Sri, Indore Nursery) is live and trading.</p></div>
+</div></section>
+
+<footer id="contact"><div class="wrap">
+<div class="mono eyebrow" style="color:var(--gold)">04 — Contact</div>
+<h2>Let's <u>build.</u></h2>
+<p class="sub">One message is enough — tell me what needs to exist and I'll reply with a plan.</p>
+<div class="soc">
+<a href="mailto:hello@example.com">✉&nbsp;&nbsp;Email</a>
+<a href="https://www.linkedin.com/" target="_blank" rel="noopener">in&nbsp;&nbsp;LinkedIn</a>
+<a href="https://wa.me/910000000000" target="_blank" rel="noopener">◉&nbsp;&nbsp;WhatsApp</a>
+<a href="https://github.com/uniqprakhar" target="_blank" rel="noopener">⌁&nbsp;&nbsp;GitHub</a>
+</div>
+<div class="mono colophon"><span>Set in Bodoni Moda + Archivo + JetBrains Mono — static, no backend</span><span><a href="#" style="text-decoration:none">Back to top ↑</a></span></div>
+</div></footer>
+<script>
+function tick(){try{document.getElementById('ist').textContent=new Date().toLocaleTimeString('en-IN',{timeZone:'Asia/Kolkata',hour:'2-digit',minute:'2-digit'})+' IST'}catch(e){}}
+tick();setInterval(tick,30000);
+addEventListener('scroll',()=>{const h=document.documentElement,p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;document.getElementById('progress').style.width=p+'%'},{passive:true});
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
